@@ -1,0 +1,67 @@
+.grid {
+  width: 100%;
+  padding: 1rem 0rem;
+
+  &__input {
+    background-color: var(--color-grey-light-3);
+  }
+
+  &__table-container {
+    width: 100%;
+    margin-top: 1rem;
+    overflow: auto;
+  }
+
+  &__table {
+    width: 100%;
+    thead {
+      background-color: var(--color-primary);
+
+      tr {
+        th {
+          color: var(--color-grey-light-2);
+          padding: 0.5rem 0;
+          font-size: 1.6rem;
+          vertical-align: middle;
+          white-space: nowrap;
+
+          div {
+            padding: 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            .sort-icon {
+              height: 2rem;
+              width: 2rem;
+              fill: currentColor;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+        background-color: #fff;
+        color: var(--color-grey-dark-2);
+
+      tr {
+        &:nth-child(1n) {
+            background-color: var(--color-grey-light-2);
+          }
+
+        &:nth-child(2n) {
+          background-color: var(--color-grey-light-3);
+        }
+
+        td {
+          font-size: 1.5rem;
+          padding: 0.5rem;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    tfoot {
+    }
+  }
+}

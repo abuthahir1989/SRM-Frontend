@@ -1,0 +1,17 @@
+.table-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 0.5rem;
+
+    & > * {
+        cursor: pointer;
+    }
+
+    .edit {
+        height: 2rem;
+        width: 2rem;
+        fill: var(--color-primary);
+    }
+
+}

@@ -1,0 +1,35 @@
+.input {
+  height: 4rem;
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  border-radius: 1rem;
+  width: 100%;
+  font-family: inherit;
+  padding: 0 0.5rem;
+  background-color: var(--color-grey-light-2);
+  color: var(--color-grey-dark-2);
+  transition: all 0.25s ease-out;
+
+  &:hover {
+    border: var(--smallborder);
+  }
+
+  &:active,
+  &:focus {
+    outline: var(--smallborder);
+  }
+
+  & + label {
+    display: block;
+    width: 100%;
+    text-align: right;
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition: all 0.25s;
+  }
+}
+
+.input:not(:placeholder-shown) + label {
+  transform: translateY(0);
+  opacity: 1;
+}

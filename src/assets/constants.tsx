@@ -1,0 +1,9 @@
+export const url = "http://192.168.10.65:8000/api/";
+export const storageUrl = "http://192.168.10.65:8000/storage/";
+export const colorSecondary = "#2a9d8f";
+export const colorGreyLight1 = "#faf9f9";
+export const colorGreyLight2 = "#f4f2f2";
+export const colorGreyLight3 = "#f0eeee";
+export const colorGreyLight4 = "#ccc";
+export const colorGreyDark2 = "#777";
+export const colorGreyDark3 = "#999";

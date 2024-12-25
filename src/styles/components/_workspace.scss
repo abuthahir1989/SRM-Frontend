@@ -1,0 +1,19 @@
+.work-space {
+    height: calc(100dvh - 6.5rem);
+    width: 100%;
+    position: relative;
+    top: 6.5rem;
+    padding: 1rem;    
+    border-top: 4px solid var(--color-secondary);
+    border-radius: 1rem;
+    background-color: var(--color-grey-light-1);
+    overflow: auto;
+    transform: translateX(0);
+    transition: transform 0.25s;  
+    position: relative;  
+
+    @starting-style {
+        transform: translateX(-100%)
+    }
+}
+

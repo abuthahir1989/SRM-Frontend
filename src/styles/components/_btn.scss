@@ -1,0 +1,30 @@
+.btn {
+  height: 4rem;
+  width: 100%;
+  background-color: var(--color-secondary);
+  color: var(--color-grey-light-1);
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  border-radius: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow-light);
+  transition: all 0.25s;
+
+  &:hover {
+    transform: translate(0, -0.1rem);
+    background-color: rgba(var(--color-secondary-rgb), 0.85);
+  }
+
+  &:active,
+  &:focus {
+    transform: translate(0, 0);
+    background-color: rgba(var(--color-secondary-rgb), 0.85);
+  }
+
+  &--transparent {
+    background-color: transparent;
+  }
+}

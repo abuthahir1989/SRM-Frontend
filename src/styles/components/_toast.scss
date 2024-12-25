@@ -1,0 +1,15 @@
+.Toastify__toast {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-family: inherit;
+  backface-visibility: hidden;
+
+  @media screen and (max-width:37.5em) {
+    font-size: 1.4rem;
+    width: fit-content;
+    margin-inline: auto;
+    margin-block-start: 1rem;
+    // border-radius: 1rem; adding border radius makes background blur
+  }
+
+}
