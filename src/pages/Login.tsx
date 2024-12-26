@@ -3,7 +3,7 @@ import { getFinancialYear, handleError } from "../assets/helperFunctions";
 import Loading from "react-loading";
 import { colorSecondary, url } from "../assets/constants";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { User, useUserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 import MyToast from "../components/MyToast";
@@ -75,8 +75,7 @@ const Login: React.FC<Props> = ({}) => {
                 className="input"
                 value={data.email}
                 onChange={handleChange}
-                placeholder="Email"
-                autoFocus
+                placeholder="Email"                
                 required
               />
               <label htmlFor="email">Email</label>

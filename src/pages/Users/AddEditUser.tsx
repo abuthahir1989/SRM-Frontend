@@ -276,8 +276,7 @@ const AddEditUser: React.FC<Props> = ({
                 name="name"
                 id="name"
                 placeholder="Name"
-                onChange={handleChange}
-                autoFocus
+                onChange={handleChange}                
               />
               <label htmlFor="name">Name</label>
             </div>

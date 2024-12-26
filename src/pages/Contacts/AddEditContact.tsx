@@ -186,8 +186,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="name"
                 id="name"
                 placeholder="Name"
-                onChange={(e) => setData({ ...data, name: e.target.value?.toUpperCase() })}
-                autoFocus
+                onChange={(e) => setData({ ...data, name: e.target.value?.toUpperCase() })}                               
               />
               <label htmlFor="name">Name</label>
             </div>
@@ -199,8 +198,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="address"
                 id="address"
                 placeholder="Address"
-                onChange={(e) => setData({ ...data, address: e.target.value?.toUpperCase() })}
-                autoFocus
+                onChange={(e) => setData({ ...data, address: e.target.value?.toUpperCase() })}                
               />
               <label htmlFor="address">Address</label>
             </div>
@@ -212,8 +210,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="city"
                 id="city"
                 placeholder="City"
-                onChange={(e) => setData({ ...data, city: e.target.value?.toUpperCase() })}
-                autoFocus
+                onChange={(e) => setData({ ...data, city: e.target.value?.toUpperCase() })}                
               />
               <label htmlFor="city">City</label>
             </div>
@@ -225,8 +222,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="district"
                 id="district"
                 placeholder="District"
-                onChange={(e) => setData({ ...data, district: e.target.value?.toUpperCase() })}
-                autoFocus
+                onChange={(e) => setData({ ...data, district: e.target.value?.toUpperCase() })}                
               />
               <label htmlFor="district">District</label>
             </div>
@@ -247,8 +243,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="phone"
                 id="phone"
                 placeholder="Phone"
-                onChange={(e) => setData({ ...data, phone: e.target.value })}
-                autoFocus
+                onChange={(e) => setData({ ...data, phone: e.target.value })}                
               />
               <label htmlFor="phone">Phone</label>
             </div>
@@ -260,8 +255,7 @@ const AddEditContact: React.FC<Props> = ({
                 name="pincode"
                 id="pincode"
                 placeholder="Pincode"
-                onChange={(e) => setData({ ...data, pincode: e.target.value })}
-                autoFocus
+                onChange={(e) => setData({ ...data, pincode: e.target.value })}                
               />
               <label htmlFor="pincode">Pincode</label>
             </div>

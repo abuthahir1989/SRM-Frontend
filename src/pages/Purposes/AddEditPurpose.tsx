@@ -132,8 +132,7 @@ const AddEditPurpose: React.FC<Props> = ({
                 name="name"
                 id="name"
                 placeholder="Name"
-                onChange={(e) => setData({ ...data, name: e.target.value?.toUpperCase() })}
-                autoFocus
+                onChange={(e) => setData({ ...data, name: e.target.value?.toUpperCase() })}                
               />
               <label htmlFor="name">Name</label>
             </div>
