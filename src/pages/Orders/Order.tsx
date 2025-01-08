@@ -1,3 +1,7 @@
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import PageHeading from "../../components/PageHeading";
+import Loading from "react-loading";
+import { colorSecondary, url } from "../../assets/constants";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -7,21 +11,19 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
-import TableButtons from "../../components/TableButtons";
 import axios from "axios";
-import { colorSecondary, url } from "../../assets/constants";
+import { useUserContext } from "../../contexts/UserContext";
 import { handleError } from "../../assets/helperFunctions";
-import PageHeading from "../../components/PageHeading";
+import TableButtons from "../../components/TableButtons";
 import Grid from "../../components/Grid";
-import Loading from "react-loading";
-// import AddEditVisit from "./AddEditVisit";
-const AddEditVisit = lazy(() => import("./AddEditVisit"));
+const AddEditModal = lazy(() => import("./AddEditOrder"));
 
 type Props = {};
 
-const Visit: React.FC<Props> = ({}) => {
+const Order: React.FC<Props> = ({}) => {
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editId, setEditId] = useState(0);
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
@@ -30,30 +32,33 @@ const Visit: React.FC<Props> = ({}) => {
   });
   const [data, setData] = useState([]);
   const columnHelper = createColumnHelper<any>();
-  const [loading, setLoading] = useState(false);
   const { user } = useUserContext();
-  const [showModal, setShowModal] = useState(false);
-  const [editId, setEditId] = useState(0);
 
   const columns = [
     columnHelper.accessor("id", {
-      header: "Id",
+      header: "Order No.",
       cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("date", {
+      header: "Date",
+      cell: (info) => {     
+        return new Date(info.getValue()).toLocaleDateString();
+      },
     }),
     columnHelper.accessor("contact", {
       header: "Contact",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("purpose", {
-      header: "Purpose",
+    columnHelper.accessor("remarks", {
+      header: "Remarks",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("description", {
-      header: "Description",
+    columnHelper.accessor("quantity", {
+      header: "Quantity",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("response", {
-      header: "Response",
+    columnHelper.accessor("user", {
+      header: "Created By",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("actions", {
@@ -89,16 +94,17 @@ const Visit: React.FC<Props> = ({}) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const getVisits = async () => {
+  const getOrders = async () => {
     try {
       setLoading(true);
-      const resp = await axios.get(`${url}visits`, {
+      const resp = await axios.get(`${url}orders`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${user?.token}`,
         },
       });
-      setData(resp.data.visits);
+      const { orders } = resp.data;
+      setData(orders);
     } catch (error) {
       handleError(error);
     } finally {
@@ -107,16 +113,16 @@ const Visit: React.FC<Props> = ({}) => {
   };
 
   useEffect(() => {
-    getVisits();
+    getOrders();
   }, []);
 
   return (
     <>
       <PageHeading
-        title="Visit"
-        firstButtonText="Add Visit"
-        firstButtonIcon="plus"
+        title="Orders"
+        firstButtonText="Add Order"
         firstButtonFunction={() => setShowModal(true)}
+        firstButtonIcon="plus"
         loading={loading}
       />
       {data.length > 0 && (
@@ -125,27 +131,27 @@ const Visit: React.FC<Props> = ({}) => {
           setGlobalFilter={setGlobalFilter}
           table={table}
           tableData={data}
-          reportName="Contacts"
+          reportName="Orders"
           excludeSortingColumns={["actions"]}
         />
       )}
       <Suspense
         fallback={
-          <div style={{ width:"100%", height:"100%",marginInline: "auto" }}>
+          <div style={{ width: "100%", height: "100%", marginInline: "auto" }}>
             <Loading color={colorSecondary} type="bars" />
           </div>
         }
       >
-        <AddEditVisit
+        <AddEditModal
           show={showModal}
           setShow={setShowModal}
           editId={editId}
           setEditId={setEditId}
-          onSave={getVisits}
+          onSave={getOrders}
         />
       </Suspense>
     </>
   );
 };
 
-export default Visit;
+export default Order;

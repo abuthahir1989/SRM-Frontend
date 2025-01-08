@@ -12,12 +12,26 @@
   border-radius: 1rem;
   transition: all 0.25s;
 
+  &--big {
+    min-width: 70%;
+    height: fit-content;
+    max-height: 75%;
+
+    @media screen and (max-width:86em) {
+      min-width: 90%;
+      max-height: 85%; 
+     }
+
+  }
+
   @media screen and (max-width: 37.5em) {  
     top: 52%;  
     min-width: 95%; 
     max-height: 85%;  
     overflow-y: auto;    
   }
+
+
 
   @starting-style {
     opacity: 0;
@@ -62,6 +76,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 1.5rem;
+
+    &:not(:first-child){
+      margin-block-start: 1rem;
+    }
 
     @media screen and (max-width: 37.5em) {
       grid-template-columns: 1fr;      

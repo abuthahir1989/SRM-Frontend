@@ -59,7 +59,7 @@ const AddEditVisit: React.FC<Props> = ({
   const [hideButton, setHideButton] = useState(false);
 
   const resetForm = () => {
-    setData(initialValue);
+    setData({ ...initialValue, user_id: user?.id });
     setEditId(0);
     setSelectedContact(null);
     setSelectedPurpose(null);

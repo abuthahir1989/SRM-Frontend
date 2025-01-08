@@ -222,7 +222,7 @@ const AddEditUser: React.FC<Props> = ({
   };
 
   const resetForm = () => {
-    setData(initialValue);
+    setData({...initialValue, user_id: user?.id});
     setSelectedRole(null);
     setSelectedManager(null);
     setSelectedState(null);

@@ -5,6 +5,7 @@ import User from "./pages/Users/User";
 import Purpose from "./pages/Purposes/Purpose";
 import Contact from "./pages/Contacts/Contact";
 import Visit from "./pages/Visits/Visit";
+import Order from "./pages/Orders/Order";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path:"/visit",
         element: <Visit />
+      },
+      {
+        path: "/order",
+        element: <Order />
       }
     ],
   },

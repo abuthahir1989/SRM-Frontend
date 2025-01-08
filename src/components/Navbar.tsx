@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import axios from "axios";
-import { url } from "../assets/constants";
+import { colorGreyLight1, url } from "../assets/constants";
 import { handleError } from "../assets/helperFunctions";
 import { useNavigate } from "react-router";
+import Loading from "react-loading";
 
 type Props = {};
 
@@ -13,9 +14,11 @@ const Navbar: React.FC<Props> = ({}) => {
   const buttonRef = useRef<HTMLLIElement | null>(null);
   const { user, removeUser } = useUserContext();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const logout = async () => {
     try {
+      setLoading(true);
       await axios.post(
         `${url}logout`,
         {},
@@ -27,11 +30,11 @@ const Navbar: React.FC<Props> = ({}) => {
         }
       );
       removeUser();
-      setShowSideNav(false);
       navigate("/login", { replace: true });
     } catch (error: any) {
       handleError(error);
-      console.log(error?.status);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -163,11 +166,40 @@ const Navbar: React.FC<Props> = ({}) => {
             onTouchStart={(e) => e.currentTarget.classList.add("hover")}
             onTouchEnd={(e) => e.currentTarget.classList.remove("hover")}
           >
-            <a href="#" className="side-nav__link" onClick={logout}>
+            <a
+              href="#"
+              className="side-nav__link"
+              onClick={() => {
+                navigate("/order");
+                setShowSideNav(false);
+              }}
+            >
               <svg className="side-nav__icon">
-                <use xlinkHref="/icons/sprite.svg#icon-log-out"></use>
+                <use xlinkHref="/icons/sprite.svg#icon-file-text"></use>
               </svg>
-              Logout
+              Order
+            </a>
+          </li>
+          <li
+            className="side-nav__item"
+            onTouchStart={(e) => e.currentTarget.classList.add("hover")}
+            onTouchEnd={(e) => e.currentTarget.classList.remove("hover")}
+          >
+            <a href="#" className="side-nav__link" onClick={logout}>
+              {loading ? (
+                <Loading
+                  type="spin"
+                  color={colorGreyLight1}
+                  height={"10%"}
+                  width={"10%"}
+                  className="d-flex"
+                />
+              ) : (
+                <svg className="side-nav__icon">
+                  <use xlinkHref="/icons/sprite.svg#icon-log-out"></use>
+                </svg>
+              )}
+              {loading ? "Logging out" : "Logout"}
             </a>
           </li>
         </ul>

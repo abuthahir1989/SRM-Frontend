@@ -22,7 +22,7 @@ const Grid:React.FC<Props> = ({
     tableData,
     reportName,
     tooltipColumns = [],
-    footerRequired = true,
+    footerRequired = false,
     excludeSortingColumns = [],
 }) => {
     const handleExport = (data: any[], reportName: string) => {

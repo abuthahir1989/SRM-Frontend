@@ -21,7 +21,7 @@
   &:active,
   &:focus {
     transform: translate(0, 0);
-    background-color: rgba(var(--color-secondary-rgb), 0.85);
+    background-color: color-mix(in srgb, var(--color-secondary) 85%, #000 15%);
   }
 
   &--transparent {

@@ -10,20 +10,48 @@
     width: 100%;
     margin-top: 1rem;
     overflow: auto;
+
+    &.fixed-height {
+      max-height: 45rem;
+      position: relative;
+
+      @media screen and (max-width: 86em) {
+        max-height: 35rem;
+      }
+
+      @media screen and (max-width: 37.5em) {
+        max-width: 40rem;
+        overflow-x: auto;
+      }
+
+    }
   }
 
   &__table {
     width: 100%;
+
+
+
     thead {
       background-color: var(--color-primary);
+
+      &.visible {
+        position: sticky;
+        top: 0;
+      }
 
       tr {
         th {
           color: var(--color-grey-light-2);
-          padding: 0.5rem 0;
+          padding: 0.5rem;
           font-size: 1.6rem;
           vertical-align: middle;
+          text-align: left;
           white-space: nowrap;
+
+          &.hide {
+            display: none;
+          }
 
           div {
             padding: 0 0.5rem;
@@ -41,13 +69,13 @@
     }
 
     tbody {
-        background-color: #fff;
-        color: var(--color-grey-dark-2);
+      background-color: #fff;
+      color: var(--color-grey-dark-2);
 
       tr {
         &:nth-child(1n) {
-            background-color: var(--color-grey-light-2);
-          }
+          background-color: var(--color-grey-light-2);
+        }
 
         &:nth-child(2n) {
           background-color: var(--color-grey-light-3);
@@ -56,12 +84,66 @@
         td {
           font-size: 1.5rem;
           padding: 0.5rem;
+          vertical-align: middle;
           white-space: nowrap;
+
+          .icons {
+            display: flex;
+          }
+
+          .remove-icon {
+            height: 2.5rem;
+            width: 2.5rem;
+            fill: var(--color-primary);
+          }
+
+          &.qty {
+            width: 8rem;
+            min-width: 7rem;
+            .input {
+              text-align: center;
+            }
+
+            .input:nth-child(1n) {
+              background-color: var(--color-grey-light-1);
+            }
+          }
+
+          &.actions {
+            width: 8rem;
+          }
+
+          &.hide {
+            display: none;
+          }
         }
       }
     }
 
     tfoot {
+      background-color: var(--color-primary);
+
+      &.visible {
+        position: sticky;
+        bottom: 0;
+      }
+
+      tr {
+        td {
+          color: var(--color-grey-light-2);
+          padding: 0.5rem;
+          font-size: 1.6rem;
+          vertical-align: middle;
+
+          &.center {
+            text-align: center;
+          }
+
+          &.end {
+            text-align: end;
+          }
+        }
+      }
     }
   }
 }

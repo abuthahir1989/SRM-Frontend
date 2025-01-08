@@ -35,7 +35,7 @@ const AddEditPurpose: React.FC<Props> = ({
   const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
-    setData(initialValue);
+    setData({ ...initialValue, user_id: user?.id });
     setEditId(0);
   };
 
@@ -132,7 +132,9 @@ const AddEditPurpose: React.FC<Props> = ({
                 name="name"
                 id="name"
                 placeholder="Name"
-                onChange={(e) => setData({ ...data, name: e.target.value?.toUpperCase() })}                
+                onChange={(e) =>
+                  setData({ ...data, name: e.target.value?.toUpperCase() })
+                }
               />
               <label htmlFor="name">Name</label>
             </div>
