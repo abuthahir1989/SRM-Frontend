@@ -15,7 +15,7 @@
 
   &:hover {
     transform: translate(0, -0.1rem);
-    background-color: rgba(var(--color-secondary-rgb), 0.85);
+    background-color: color-mix(in srgb, var(--color-secondary) 85%, #fff 15%);
   }
 
   &:active,

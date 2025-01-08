@@ -1,4 +1,11 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type SizeDetail = {
   size_id: number;
@@ -14,6 +21,7 @@ type Props = {
 
 const SizePopOver: React.FC<Props> = ({ sizes, setShow, onDone }) => {
   const [data, setData] = useState<SizeDetail[]>(sizes);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,8 +38,12 @@ const SizePopOver: React.FC<Props> = ({ sizes, setShow, onDone }) => {
     );
   };
 
+  useEffect(() => {
+    if (popoverRef.current) popoverRef.current.focus();
+  }, []);
+
   return (
-    <div className="popover">
+    <div className="popover" ref={popoverRef}>
       <div className="popover__header">
         <h5>Available Sizes</h5>
         <svg className="close-icon" onClick={() => setShow(false)}>
