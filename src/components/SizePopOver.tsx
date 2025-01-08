@@ -63,6 +63,7 @@ const SizePopOver: React.FC<Props> = ({ sizes, setShow, onDone }) => {
                 type="text"
                 className="input"
                 onChange={handleChange}
+                inputMode="numeric"
               />
             </div>
           </div>

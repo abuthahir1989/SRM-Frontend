@@ -580,6 +580,7 @@ const AddEditOrder: React.FC<Props> = ({
                               type="text"
                               className="input input--sm"
                               value={item.qty || ""}
+                              inputMode="numeric"
                               onChange={(e) => {
                                 if (isNaN(+e.target.value)) {
                                   toast.warn("Please enter valid numbers");
