@@ -12,7 +12,6 @@ import axios, { AxiosResponse } from "axios";
 import { colorSecondary, storageUrl, url } from "../../assets/constants";
 import { handleError } from "../../assets/helperFunctions";
 import ReactModal from "react-modal";
-import MyToast from "../../components/MyToast";
 import Loading from "react-loading";
 import Select from "../../components/Select";
 import imageCompression from "browser-image-compression";
@@ -69,16 +68,16 @@ const AddEditVisit: React.FC<Props> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data.contact_id == "") {
-      toast.warn("Please select the contact");
+      toast.warn("Please select the contact", { containerId: "layout" });
       return;
     }
     if (data.purpose_id == "") {
-      toast.warn("Please select the purpose");
+      toast.warn("Please select the purpose", { containerId: "layout" });
       return;
     }
 
     if (images.length == 0) {
-      toast.warn("Please load photos");
+      toast.warn("Please load photos", { containerId: "layout" });
       return;
     }
 
@@ -120,7 +119,7 @@ const AddEditVisit: React.FC<Props> = ({
         );
       }
 
-      toast.success(resp.data.message);
+      toast.success(resp.data.message, { containerId: "layout" });
       // resetForm();
       setHideButton(true);
       onSave();
@@ -234,7 +233,7 @@ const AddEditVisit: React.FC<Props> = ({
             isNew: true,
           };
         } catch (error: any) {
-          toast.warn(error.message);
+          toast.warn(error.message, { containerId: "layout" });
           return null;
         }
       })
@@ -280,6 +279,7 @@ const AddEditVisit: React.FC<Props> = ({
       className="modal"
       overlayClassName="modal-overlay"
       ariaHideApp={false}
+      parentSelector={() => document.getElementById("work-space")!}
     >
       <div className="modal__header">
         <h2>{`${editId > 0 ? "Update Visit" : "Add Visit"} ${
@@ -405,7 +405,6 @@ const AddEditVisit: React.FC<Props> = ({
             )}
           </div>
         </form>
-        <MyToast position="bottom-left" />
       </div>
     </ReactModal>
   );

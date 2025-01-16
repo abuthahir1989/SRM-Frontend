@@ -3,13 +3,15 @@ import { ToastContainer, ToastPosition } from "react-toastify";
 
 type Props = {
     position: ToastPosition;
+    containerId: string;
 };
 
-const MyToast: React.FC<Props> = ({position}) => {
+const MyToast: React.FC<Props> = ({position, containerId}) => {
   return (
     <ToastContainer
       position={position}
-      autoClose={3000}
+      containerId={containerId}
+      autoClose={1500}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick

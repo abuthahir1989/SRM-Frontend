@@ -9,8 +9,7 @@
     background-color: var(--color-grey-light-1);
     overflow: auto;
     transform: translateX(0);
-    transition: transform 0.25s;  
-    position: relative;  
+    transition: transform 0.25s;      
 
     @starting-style {
         transform: translateX(-100%)

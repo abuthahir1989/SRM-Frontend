@@ -6,6 +6,7 @@ import Purpose from "./pages/Purposes/Purpose";
 import Contact from "./pages/Contacts/Contact";
 import Visit from "./pages/Visits/Visit";
 import Order from "./pages/Orders/Order";
+import OrderPDF from "./pages/Orders/OrderPDF";
 
 const router = createBrowserRouter([
   {
@@ -21,22 +22,26 @@ const router = createBrowserRouter([
         element: <User />,
       },
       {
-        path:"/purpose",
-        element: <Purpose />
+        path: "/purpose",
+        element: <Purpose />,
       },
       {
-        path:"/contact",
-        element: <Contact />
+        path: "/contact",
+        element: <Contact />,
       },
       {
-        path:"/visit",
-        element: <Visit />
+        path: "/visit",
+        element: <Visit />,
       },
       {
         path: "/order",
-        element: <Order />
-      }
+        element: <Order />,
+      },
     ],
+  },
+  {
+    path: "/order/:id",
+    element: <OrderPDF />,    
   },
 ]);
 

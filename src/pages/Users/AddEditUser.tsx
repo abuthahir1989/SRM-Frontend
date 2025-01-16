@@ -13,7 +13,6 @@ import { handleError } from "../../assets/helperFunctions";
 import axios, { AxiosResponse } from "axios";
 import { colorSecondary, url } from "../../assets/constants";
 import Loading from "react-loading";
-import MyToast from "../../components/MyToast";
 import Checkbox from "../../components/Checkbox";
 
 type Props = {
@@ -119,25 +118,27 @@ const AddEditUser: React.FC<Props> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data.name == "") {
-      toast.warn("Please fill the name");
+      toast.warn("Please fill the name", { containerId: "layout" });
       return;
     }
     if (data.email == "") {
-      toast.warn("Please fill the email");
+      toast.warn("Please fill the email", { containerId: "layout" });
       return;
     }
     if (editId == 0) {
       if (data.password == "" || data.password_confirmation == "") {
-        toast.warn("Please fill the password fields");
+        toast.warn("Please fill the password fields", {
+          containerId: "layout",
+        });
         return;
       }
     }
     if (data.role == "") {
-      toast.warn("Please select role");
+      toast.warn("Please select role", { containerId: "layout" });
       return;
     }
     if (data.state_id == "") {
-      toast.warn("Please select state");
+      toast.warn("Please select state", { containerId: "layout" });
       return;
     }
 
@@ -161,7 +162,7 @@ const AddEditUser: React.FC<Props> = ({
         });
       }
 
-      toast.success(resp.data.message);
+      toast.success(resp.data.message, { containerId: "layout" });
       resetForm();
       onSave();
     } catch (error) {
@@ -222,7 +223,7 @@ const AddEditUser: React.FC<Props> = ({
   };
 
   const resetForm = () => {
-    setData({...initialValue, user_id: user?.id});
+    setData({ ...initialValue, user_id: user?.id });
     setSelectedRole(null);
     setSelectedManager(null);
     setSelectedState(null);
@@ -253,6 +254,7 @@ const AddEditUser: React.FC<Props> = ({
       className="modal"
       overlayClassName="modal-overlay"
       ariaHideApp={false}
+      parentSelector={() => document.getElementById("work-space")!}
     >
       <div className="modal__header">
         <h2>{`${editId > 0 ? "Update User" : "Add User"}`}</h2>
@@ -276,7 +278,7 @@ const AddEditUser: React.FC<Props> = ({
                 name="name"
                 id="name"
                 placeholder="Name"
-                onChange={handleChange}                
+                onChange={handleChange}
               />
               <label htmlFor="name">Name</label>
             </div>
@@ -392,7 +394,6 @@ const AddEditUser: React.FC<Props> = ({
             )}
           </div>
         </form>
-        <MyToast position="bottom-left" />
       </div>
     </ReactModal>
   );

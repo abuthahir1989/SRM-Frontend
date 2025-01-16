@@ -131,7 +131,7 @@ const Visit: React.FC<Props> = ({}) => {
       )}
       <Suspense
         fallback={
-          <div style={{ width:"100%", height:"100%",marginInline: "auto" }}>
+          <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Loading color={colorSecondary} type="bars" />
           </div>
         }

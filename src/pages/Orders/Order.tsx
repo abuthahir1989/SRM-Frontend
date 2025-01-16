@@ -41,7 +41,7 @@ const Order: React.FC<Props> = ({}) => {
     }),
     columnHelper.accessor("date", {
       header: "Date",
-      cell: (info) => {     
+      cell: (info) => {
         return new Date(info.getValue()).toLocaleDateString();
       },
     }),
@@ -71,6 +71,8 @@ const Order: React.FC<Props> = ({}) => {
               setEditId(info.row.original.id);
               setShowModal(true);
             }}
+            pdf
+            pdfURL={`/order/${info.row.original.id}`}
           />
         );
       },
@@ -137,7 +139,15 @@ const Order: React.FC<Props> = ({}) => {
       )}
       <Suspense
         fallback={
-          <div style={{ width: "100%", height: "100%", marginInline: "auto" }}>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Loading color={colorSecondary} type="bars" />
           </div>
         }

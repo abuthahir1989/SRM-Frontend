@@ -11,25 +11,25 @@ export const getFinancialYear = (): string => {
   }
 };
 
-export const handleError = (error: any) => {
+export const handleError = (error: any, containerId = "layout") => {
   if (axios.isAxiosError(error)) {
-    var err = error.response;       
+    var err = error.response;
     if (Array.isArray(err?.data.errors)) {
       for (let val of err?.data.errors) {
-        toast.warning(val.description);
+        toast.warning(val.description, { containerId: containerId });
       }
     } else if (typeof err?.data.errors === "object") {
       for (let e in err?.data.errors) {
-        toast.warning(err.data.errors[e][0]);        
+        toast.warning(err.data.errors[e][0], { containerId: containerId });
       }
     } else if (err?.status == 401) {
-      toast.warning("Please login");
+      toast.warning("Please login", { containerId: containerId });
       localStorage.removeItem("sales_pulse_user");
       location.assign("/login");
     } else if (err?.data.message) {
-      toast.warning(err.data.message);
+      toast.warning(err.data.message, { containerId: containerId });
     } else if (err) {
-      toast.warning(err?.data);
+      toast.warning(err?.data, { containerId: containerId });
     }
   }
 };

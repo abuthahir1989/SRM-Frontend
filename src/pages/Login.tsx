@@ -44,10 +44,10 @@ const Login: React.FC<Props> = ({}) => {
         token: response.token,
       };
       setUser(user);
-      toast.success(response.message);
       navigate("/", { replace: true });
+      toast.success(response.message, { containerId: "layout" });
     } catch (error) {
-      handleError(error);
+      handleError(error, "login");
     } finally {
       setLoading(false);
     }
@@ -109,7 +109,7 @@ const Login: React.FC<Props> = ({}) => {
         <div className="company-name">
           <p>&copy; ESSA GARMENTS PRIVATE LIMITED {getFinancialYear()}</p>
         </div>
-        <MyToast position="top-right" />
+        <MyToast position="top-right" containerId="login" />
       </div>
     </>
   );

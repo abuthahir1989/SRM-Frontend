@@ -8,7 +8,6 @@ import ReactModal from "react-modal";
 import Select from "../../components/Select";
 import Checkbox from "../../components/Checkbox";
 import Loading from "react-loading";
-import MyToast from "../../components/MyToast";
 
 type Option = {
   label: string;
@@ -57,7 +56,7 @@ const AddEditContact: React.FC<Props> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data.name == "") {
-      toast.warn("Please fill the name");
+      toast.warn("Please fill the name", { containerId: "layout" });
       return;
     }
 
@@ -81,7 +80,7 @@ const AddEditContact: React.FC<Props> = ({
         });
       }
 
-      toast.success(resp.data.message);
+      toast.success(resp.data.message, { containerId: "layout" });
       resetForm();
       onSave();
     } catch (error) {
@@ -163,6 +162,7 @@ const AddEditContact: React.FC<Props> = ({
       className="modal modal--purpose"
       overlayClassName="modal-overlay"
       ariaHideApp={false}
+      parentSelector={() => document.getElementById("work-space")!}
     >
       <div className="modal__header">
         <h2>{`${editId > 0 ? "Update Contact" : "Add Contact"}`}</h2>
@@ -292,7 +292,6 @@ const AddEditContact: React.FC<Props> = ({
             )}
           </div>
         </form>
-        <MyToast position="bottom-left" />
       </div>
     </ReactModal>
   );

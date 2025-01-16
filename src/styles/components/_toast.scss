@@ -8,8 +8,12 @@
     font-size: 1.4rem;
     width: fit-content;
     margin-inline: auto;
-    margin-block-start: 1rem;
+    margin-block: 1rem;
     // border-radius: 1rem; adding border radius makes background blur
   }
 
+}
+
+.Toastify__toast-container {  
+  overflow: hidden;
 }

@@ -11,13 +11,12 @@ import { handleError } from "../../assets/helperFunctions";
 import axios, { AxiosResponse } from "axios";
 import ReactModal from "react-modal";
 import Select from "../../components/Select";
-import { colorGreyLight1, url } from "../../assets/constants";
+import { colorGreyLight1, colorSecondary, url } from "../../assets/constants";
 import AsyncCustomSelect from "../../components/AsyncSelect";
 import { Popover } from "react-tiny-popover";
 import SizePopOver from "../../components/SizePopOver";
 import { toast } from "react-toastify";
 import Loading from "react-loading";
-import MyToast from "../../components/MyToast";
 
 type Props = {
   show: boolean;
@@ -238,12 +237,12 @@ const AddEditOrder: React.FC<Props> = ({
     e.preventDefault();
 
     if (!data.contact_id) {
-      toast.warn("Please select contact");
+      toast.warn("Please select contact", { containerId: "layout" });
       return;
     }
 
     if (state.order_items.length === 0) {
-      toast.warn("No data");
+      toast.warn("No data", { containerId: "layout" });
       return;
     }
 
@@ -290,7 +289,7 @@ const AddEditOrder: React.FC<Props> = ({
       const {
         data: { message },
       } = response;
-      toast.success(message);
+      toast.success(message, { containerId: "layout" });
       resetForm();
       onSave();
     } catch (error) {
@@ -397,6 +396,7 @@ const AddEditOrder: React.FC<Props> = ({
       className="modal modal--big"
       overlayClassName="modal-overlay"
       ariaHideApp={false}
+      parentSelector={() => document.getElementById("work-space")!}
     >
       <div className="modal__header">
         <h2>{`${editId > 0 ? "Update Order" : "Add Order"}`}</h2>
@@ -463,7 +463,7 @@ const AddEditOrder: React.FC<Props> = ({
               />
             </div>
             <div className="form__group">
-              <Popover              
+              <Popover
                 reposition
                 boundaryInset={10}
                 isOpen={showPopOver}
@@ -536,7 +536,9 @@ const AddEditOrder: React.FC<Props> = ({
                   onClick={() => {
                     if (!showPopOver) {
                       if (!selectedBrand || !selectedStyle) {
-                        toast.warn("Please select brand and style");
+                        toast.warn("Please select brand and style", {
+                          containerId: "layout",
+                        });
                         return;
                       }
                     }
@@ -547,13 +549,8 @@ const AddEditOrder: React.FC<Props> = ({
                 </button>
               </Popover>
             </div>
-            <div className="form__group">
-              <button type="submit" className="btn" disabled={loading}>
-                {`${loading ? "Loading..." : editId > 0 ? "Update" : "Save"}`}
-              </button>
-            </div>
           </div>
-          {state.order_items.length > 0 && (
+          {
             <div className="modal_inputs mt-sm">
               <div className="form__group">
                 <div className="grid__table-container fixed-height">
@@ -569,50 +566,60 @@ const AddEditOrder: React.FC<Props> = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {state.order_items.map((item) => (
-                        <tr key={item.size_id}>
-                          <td className="hide">{item.size_id}</td>
-                          <td>{item.brand}</td>
-                          <td>{item.style}</td>
-                          <td>{item.size}</td>
-                          <td className="qty">
-                            <input
-                              type="text"
-                              className="input input--sm"
-                              value={item.qty || ""}
-                              inputMode="numeric"
-                              onChange={(e) => {
-                                if (isNaN(+e.target.value)) {
-                                  toast.warn("Please enter valid numbers");
-                                  return;
-                                }
-                                dispatch({
-                                  type: "UpdateQty",
-                                  payload: {
-                                    size_id: item.size_id,
-                                    qty: +e.target.value,
-                                  },
-                                });
-                              }}
-                            />
-                          </td>
-                          <td className="actions">
-                            <div className="icons">
-                              <svg
-                                className="remove-icon"
-                                onClick={() =>
+                      {state.order_items.length > 0 ? (
+                        state.order_items.map((item) => (
+                          <tr key={item.size_id}>
+                            <td className="hide">{item.size_id}</td>
+                            <td>{item.brand}</td>
+                            <td>{item.style}</td>
+                            <td>{item.size}</td>
+                            <td className="qty">
+                              <input
+                                type="text"
+                                className="input input--sm"
+                                value={item.qty || ""}
+                                inputMode="numeric"
+                                onChange={(e) => {
+                                  if (isNaN(+e.target.value)) {
+                                    toast.warn("Please enter valid numbers", {
+                                      containerId: "layout",
+                                    });
+                                    return;
+                                  }
                                   dispatch({
-                                    type: "RemoveItem",
-                                    payload: { size_id: item.size_id },
-                                  })
-                                }
-                              >
-                                <use xlinkHref="/icons/sprite.svg#icon-circle-with-cross"></use>
-                              </svg>
-                            </div>
+                                    type: "UpdateQty",
+                                    payload: {
+                                      size_id: item.size_id,
+                                      qty: +e.target.value,
+                                    },
+                                  });
+                                }}
+                              />
+                            </td>
+                            <td className="actions">
+                              <div className="icons">
+                                <svg
+                                  className="remove-icon"
+                                  onClick={() =>
+                                    dispatch({
+                                      type: "RemoveItem",
+                                      payload: { size_id: item.size_id },
+                                    })
+                                  }
+                                >
+                                  <use xlinkHref="/icons/sprite.svg#icon-circle-with-cross"></use>
+                                </svg>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td style={{ textAlign: "center" }} colSpan={5}>
+                            No Data
                           </td>
                         </tr>
-                      ))}
+                      )}
                     </tbody>
                     {state.order_items.length > 0 && (
                       <tfoot className="visible">
@@ -634,9 +641,19 @@ const AddEditOrder: React.FC<Props> = ({
                 </div>
               </div>
             </div>
-          )}
+          }
+          <div className="modal__actions mt-sm">
+            {loading ? (
+              <div className="loading">
+                <Loading color={colorSecondary} type="bars" />
+              </div>
+            ) : (
+              <button type="submit" className="btn">
+                {`${editId > 0 ? "Update" : "Save"}`}
+              </button>
+            )}
+          </div>
         </form>
-        <MyToast position="bottom-left" />
       </div>
     </ReactModal>
   );

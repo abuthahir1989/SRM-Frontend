@@ -17,13 +17,13 @@ const Layout: React.FC<Props> = ({}) => {
   }, [user]);
 
   return (
-    <>
+    <div id="layout">
       <Navbar />
-      <div className="work-space">
+      <div className="work-space" id="work-space">
         <Outlet />
-        <MyToast position="top-right" />
+        <MyToast position="bottom-right" containerId="layout" />
       </div>
-    </>
+    </div>
   );
 };
 

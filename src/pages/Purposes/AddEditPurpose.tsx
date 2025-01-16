@@ -4,7 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import Checkbox from "../../components/Checkbox";
 import Loading from "react-loading";
 import { colorSecondary, url } from "../../assets/constants";
-import MyToast from "../../components/MyToast";
+// import MyToast from "../../components/MyToast";
 import { handleError } from "../../assets/helperFunctions";
 import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
@@ -42,7 +42,7 @@ const AddEditPurpose: React.FC<Props> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data.name == "") {
-      toast.warn("Please fill the name");
+      toast.warn("Please fill the name", { containerId: "layout" });
       return;
     }
 
@@ -66,7 +66,7 @@ const AddEditPurpose: React.FC<Props> = ({
         });
       }
 
-      toast.success(resp.data.message);
+      toast.success(resp.data.message, { containerId: "layout" });
       resetForm();
       onSave();
     } catch (error) {
@@ -109,6 +109,7 @@ const AddEditPurpose: React.FC<Props> = ({
       className="modal modal--purpose"
       overlayClassName="modal-overlay"
       ariaHideApp={false}
+      parentSelector={() => document.getElementById("work-space")!}
     >
       <div className="modal__header">
         <h2>{`${editId > 0 ? "Update Purpose" : "Add Purpose"}`}</h2>
@@ -163,7 +164,7 @@ const AddEditPurpose: React.FC<Props> = ({
             )}
           </div>
         </form>
-        <MyToast position="bottom-left" />
+        {/* <MyToast position="bottom-left" /> */}
       </div>
     </ReactModal>
   );
